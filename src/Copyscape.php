@@ -63,6 +63,10 @@ use SimpleXMLElement;
          return $this->debug;
      }
 
+     public function setLimit($limit){
+         $this->limit = $limit;
+     }
+
      /**
       * @param string $domain Add domain to ignore list when do internet search
       */
@@ -145,6 +149,10 @@ use SimpleXMLElement;
         $aux['k'] = $this->key;
 
         $aux['f'] = 'xml';
+
+        if(isset($this->limit)){
+            $aux['l'] = $this->limit;
+        }
 
         if(count($this->ignoredDomains) > 0) $aux['i'] = implode(',',$this->ignoredDomains);
         if($this->debug) $aux['x'] = 1;
