@@ -137,6 +137,18 @@ use SimpleXMLElement;
         }
     }
 
+     public function searchInternetTextPost($text,$fullComparisons = 0){
+         try{
+             $response = $this->client->request('POST','',['query' => $this->getApiParams(['o' => 'csearch', 'c' => $fullComparisons, 'e' => $this->encode]) , 'body' => $text]);
+             $xml = simplexml_load_string($response->getBody());
+             $this->checkApiErrors($xml);
+
+             return new Report($xml);
+         }catch (GuzzleException $exception){
+             throw new ApiException($exception->getMessage());
+         }
+     }
+
 
      /**
       * @param null $params
